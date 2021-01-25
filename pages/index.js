@@ -1,65 +1,70 @@
+import { useState, useEffect } from "react"
+import moment from "moment"
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  const [input, setInput] = useState("");
+  const [generatedLinks, setGeneratedLinks] = useState([])
+  const [lastFormatTime, setLastFormatTime] = useState("")
+  // Make a 'format' object, including formatted time and all
+
+
+  // 2
+  const formatLink = (inputValue) => {
+    if(inputValue.includes(",")) {
+      let inputValueArr = inputValue.split(",")
+      for(let i = 0; i < inputValueArr.length; i++) {
+        let inputValueChange1 = inputValueArr[i].replace("/file/d/", "/uc?id=");
+        let inputValueChange2 = inputValueChange1.replace("/view?usp=sharing", "");
+        let inputValueChange3 = inputValueChange2.replace("%20", "");
+        setGeneratedLinks(generatedLinks => [...generatedLinks, inputValueChange3])
+      }
+    } else {
+      let inputValueChange1 = inputValue.replace("/file/d/", "/uc?id=");
+      let inputValueChange2 = inputValueChange1.replace("/view?usp=sharing", "");
+      setGeneratedLinks([...inputValueChange2])
+    }
+
+  }
+
+  // 1
+  const formatLinksClick = (e, inputValue) => {
+    let newFormatTime = moment().format('LTS')
+    
+    setLastFormatTime(newFormatTime)
+    setGeneratedLinks([])
+    formatLink(inputValue)
+
+    e.preventDefault()
+  }
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Batch Image Src Link Formatter For Google Drive</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <h1 className={styles.h1}>Batch Image Src Link Formatter For Google Drive</h1>
+      <form onSubmit={(e) => formatLinksClick(e, input)} className={styles.form}>
+        <input placeholder="https://" value={input} onChange={(e) => setInput(e.target.value)} className={styles.input} />
+        <button className={styles.formatLinksButton} type="submit">Generate Link(s)</button>
+      </form>
+      {
+        generatedLinks.length >= 1 &&
+        <p><strong>{generatedLinks.length}</strong>&nbsp; Links Formatted</p>
+      }
+      {
+        lastFormatTime && <span className={styles.lastFormatSpan}>Last format: &nbsp;{lastFormatTime}</span>
+      }
+      
+      <span className={styles.span}>
+        {generatedLinks.map((generatedLink) => <div>
+          <p className={styles.generatedLink} >{generatedLink}</p>     
+          </div> )}
+      </span>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
 }
