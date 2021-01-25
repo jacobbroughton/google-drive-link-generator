@@ -24,7 +24,7 @@ export default function Home() {
     } else {
       let inputValueChange1 = inputValue.replace("/file/d/", "/uc?id=");
       let inputValueChange2 = inputValueChange1.replace("/view?usp=sharing", "");
-      setGeneratedLinks([...inputValueChange2])
+      setGeneratedLinks([inputValueChange2])
     }
 
   }
@@ -47,6 +47,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1 className={styles.h1}>Batch Image Src Link Formatter For Google Drive</h1>
+      <p className={styles.correctFormatExample}>Your link should be in a format like: <br/>https://drive.google.com/file/d/1Pz_01i2itDW1QZmSMuHen3WZYAJJ3pTV/view?usp=sharing</p>
       <form onSubmit={(e) => formatLinksClick(e, input)} className={styles.form}>
         <input placeholder="https://" value={input} onChange={(e) => setInput(e.target.value)} className={styles.input} />
         <button className={styles.formatLinksButton} type="submit">Generate Link(s)</button>
@@ -60,9 +61,12 @@ export default function Home() {
       }
       
       <span className={styles.span}>
-        {generatedLinks.map((generatedLink) => <div>
+        {generatedLinks.map((generatedLink) => 
+        <div className={styles.formattedLinkItem}>
+          <img src={generatedLink} className={styles.formattedLinkImage} alt="Formatted Link Image"/>
           <p className={styles.generatedLink} >{generatedLink}</p>     
-          </div> )}
+        </div> 
+        )}
       </span>
 
     </div>

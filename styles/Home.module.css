@@ -26,6 +26,12 @@
   padding: 10px 15px;
 }
 
+.formattedLinkItem{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .hr{
   width: 100%;
 }
@@ -43,13 +49,24 @@
    border: none;
 }
 
+.correctFormatExample{
+  color: #999;
+  margin-bottom: 20px;
+}
+
 .lastFormatSpan{
   margin-bottom: 20px;
+}
+
+.formattedLinkImage{
+  max-width: 175px;
 }
 
 .generatedLink{
   border-left: lightblue 5px solid;
   padding-left: 5px;
+  margin-left: 15px;
+  /* font-size: 16px; */
 }
 
 
