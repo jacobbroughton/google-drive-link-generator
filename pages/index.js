@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import moment from "moment"
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
@@ -8,6 +8,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [generatedLinks, setGeneratedLinks] = useState([])
   const [lastFormatTime, setLastFormatTime] = useState("")
+  const copyText = useRef(null)
   // Make a 'format' object, including formatted time and all
 
 
@@ -40,6 +41,13 @@ export default function Home() {
     e.preventDefault()
   }
 
+  // const copyTextTrigger = (text) => {
+  //   const range = document.createRange();
+  //   range.selectNode
+  //   copyText.current.select()
+  //   document.execCommand('copy')
+  // }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -65,6 +73,7 @@ export default function Home() {
         <div className={styles.formattedLinkItem}>
           <img src={generatedLink} className={styles.formattedLinkImage} alt="Formatted Link Image"/>
           <p className={styles.generatedLink} >{generatedLink}</p>     
+          {/* <input value={generatedLink} readOnly ref={copyText} onClick={e => copyTextTrigger(e.target.value)}/> */}
         </div> 
         )}
       </span>

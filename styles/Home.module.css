@@ -29,7 +29,7 @@
 .formattedLinkItem{
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .hr{
@@ -60,11 +60,12 @@
 
 .formattedLinkImage{
   max-width: 175px;
+  border-radius: 5px;
 }
 
 .generatedLink{
-  border-left: lightblue 5px solid;
-  padding-left: 5px;
+  /* border-left: lightblue 5px solid; */
+  /* padding-left: 5px; */
   margin-left: 15px;
   /* font-size: 16px; */
 }
