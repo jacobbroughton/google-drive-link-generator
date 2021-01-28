@@ -1,0 +1,18 @@
+.list{
+    margin-top: 15px;
+  }
+
+.formattedLinkItem{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .formattedLinkImage{
+    max-width: 175px;
+    border-radius: 5px;
+  }
+
+  .generatedLink{
+    margin-left: 15px;
+  }
